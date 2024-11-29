@@ -1,0 +1,140 @@
+# Python project configuration file.
+# https://packaging.python.org/en/latest/specifications/pyproject-toml
+
+# ----------
+# Packaging.
+# ----------
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'catalog-plugin'
+description = 'Open edX Platform Catalog Plugin.'
+readme = 'README.md'
+authors = [{ name = 'eduNEXT', email = 'contact@edunext.co' }]
+keywords = ['Python', 'Django', 'Open edX', 'Plugin', 'Catalog']
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Environment :: Plugins',
+    'Environment :: Web Environment',
+    'Framework :: Django',
+    'Framework :: Django :: 3.2',
+    'Framework :: Django :: 4.2',
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Topic :: Education',
+    'Topic :: Education :: Computer Aided Instruction (CAI)',
+]
+requires-python = '>=3.8'
+dynamic = ['version', 'dependencies']
+
+[project.urls]
+Repository = 'https://github.com/Pearson-Advance/catalog-plugin.git'
+Issues = 'https://github.com/Pearson-Advance/catalog-plugin/issues'
+Changelog = 'https://github.com/Pearson-Advance/catalog-plugin/blob/master/CHANGELOG.md'
+
+[tool.setuptools.dynamic]
+version = {attr = 'catalog_plugin.__version__'}
+
+[project.entry-points.'lms.djangoapp']
+catalog = 'catalog_plugin.apps:CatalogPluginAppConfig'
+
+
+# -----------
+# Versioning.
+# -----------
+[tool.bumpversion]
+current_version = '0.0.0'
+commit = true
+tag = true
+
+[[tool.bumpversion.files]]
+filename = 'catalog_plugin/__init__.py'
+
+
+# --------
+# Testing.
+# --------
+[tool.pytest.ini_options]
+addopts = '--ds=test_settings --reuse-db'
+python_files = ['test_*.py']
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    envlist = py{38,310,311,312}-django{32,42}, quality
+    skip_missing_interpreters = true
+
+    [testenv]
+    deps =
+        django32: Django>=3.2,<4.0
+        django42: Django>=4.2,<5.0
+        -r {toxinidir}/requirements/test.txt
+    setenv =
+        DJANGO_SETTINGS_MODULE = test_settings
+    commands =
+        python manage.py check
+        pytest catalog_plugin
+
+    [testenv:quality]
+    deps =
+        -r {toxinidir}/requirements/quality.txt
+    allowlist_externals =
+        make
+    commands =
+        pylint manage.py catalog_plugin
+        pydocstyle manage.py catalog_plugin
+        isort --check-only --diff manage.py catalog_plugin
+        mypy manage.py catalog_plugin
+        make selfcheck
+"""
+
+
+# --------
+# Quality.
+# --------
+[tool.pylint.MASTER]
+py-version = '3.8.0'
+load-plugins = 'pylint_django'
+django-settings-module = 'test_settings'
+ignore = ['migrations']
+
+[tool.pylint.FORMAT]
+max-line-length = 120
+
+[tool.pylint.DESIGN]
+max-parents = 13
+
+[tool.pylint.IMPORTS]
+known-third-party = ['catalog_plugin']
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [
+    'too-few-public-methods',
+    'too-many-arguments',
+    'too-many-instance-attributes',
+]
+
+[tool.isort]
+line_length = 120
+known_first_party = ['catalog_plugin']
+skip_glob = ['**/migrations/*.py']
+
+[tool.mypy]
+check_untyped_defs = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+plugins = ['mypy_django_plugin.main']
+exclude = ['migrations']
+
+[tool.django-stubs]
+django_settings_module = 'test_settings'

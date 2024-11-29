@@ -1,0 +1,13 @@
+-c constraints.txt
+-r base.txt
+
+pylint                    # PEP 8 compliance validation
+pylint-django             # Pylint plugin for Django
+pycodestyle               # PEP 8 compliance validation
+pydocstyle                # PEP 257 compliance validation
+isort                     # to standardize order of imports
+coverage                  # coverage
+
+tox                       # Virtualenv management for tests
+pytest-django             # pytest extension for better Django support
+jsonschema                # JSON Schema data validation
