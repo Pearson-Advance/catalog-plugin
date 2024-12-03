@@ -44,7 +44,7 @@ Changelog = 'https://github.com/Pearson-Advance/catalog-plugin/blob/master/CHANG
 version = {attr = 'catalog_plugin.__version__'}
 
 [project.entry-points.'lms.djangoapp']
-catalog = 'catalog_plugin.apps:CatalogPluginAppConfig'
+catalog = 'catalog_plugin.apps:CatalogPluginConfig'
 
 
 # -----------
