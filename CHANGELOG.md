@@ -9,6 +9,11 @@ This project adheres to Semantic Versioning (http://semver.org/).
 There should always be an "Unreleased" section for changes pending release.
 ----
 
+### Version 0.1.0 - Dic 3, 2024
+**Changes:**
+
+  - Create models for catalog plugin.
+
 
 ### Version 0.0.0 - Nov 20, 2024
 **Changes:**
