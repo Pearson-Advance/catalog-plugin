@@ -3,7 +3,13 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from catalog_plugin.models import AvailableCourse, CatalogCourses, DynamicCatalog, FlexibleCatalogModel
+from catalog_plugin.models import (
+    AvailableCourse,
+    CatalogCourses,
+    DynamicCatalog,
+    FlexibleCatalogModel,
+    FixedCatalog,
+)
 
 
 class CourseKeysMixin:
@@ -68,6 +74,13 @@ class FlexibleCatalogModelAdmin(admin.ModelAdmin, CourseKeysMixin):
     def get_queryset(self, request):
         """Override the queryset to use select_subclasses for subclass resolution."""
         return FlexibleCatalogModel.objects.select_subclasses()
+
+
+@admin.register(FixedCatalog)
+class FixedCatalogAdmin(admin.ModelAdmin, CourseKeysMixin):
+    list_display = ('__str__', 'course_keys')
+    search_fields = ('flexible_catalog__name', 'flexible_catalog__slug', 'flexible_catalog__id')
+    filter_horizontal = ('course_runs',)
 
 
 @admin.register(CatalogCourses)

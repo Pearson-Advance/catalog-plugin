@@ -62,6 +62,21 @@ class FlexibleCatalogModel(TimeStampedModel):
         return f'<FlexibleCatalogModel, ID: {self.id}>'
 
 
+class FixedCatalog(FlexibleCatalogModel):
+    """Represent the custom fixed catalog model."""
+
+    course_runs = models.ManyToManyField('course_overviews.CourseOverview', blank=True)
+
+    def get_course_runs(self):
+        """
+        Returns the associated course_runs.
+        """
+        return self.course_runs.all()
+
+    def __str__(self):
+        return f'FixedCatalog: {self.id}'
+
+
 class CatalogCourses(FlexibleCatalogModel):
     """
     Represent a course offering within a catalog.
