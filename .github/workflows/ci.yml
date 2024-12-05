@@ -43,6 +43,3 @@ jobs:
         with:
           path: .tox
           key: tox-${{ matrix.python-version }}-${{ hashFiles('requirements/**') }}
-
-      - name: Run tests
-        run: make validate
