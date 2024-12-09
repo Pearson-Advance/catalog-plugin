@@ -3,6 +3,21 @@
 from typing import Any
 
 
+INSTALLED_APPS = [
+    'rest_framework',
+    'django_filters',
+    'catalog_plugin',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+}
+
+
 def plugin_settings(settings: Any):  # pylint: disable=unused-argument
     """Open edX plugin settings.
 
