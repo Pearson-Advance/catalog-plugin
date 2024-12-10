@@ -4,7 +4,12 @@ from rest_framework import serializers
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 
-from catalog_plugin.models import AvailableCourse, FixedCatalog, CatalogCourses
+from catalog_plugin.models import (
+    FlexibleCatalogModel,
+    AvailableCourse,
+    FixedCatalog,
+    CatalogCourses,
+)
 
 
 class CourseKeySerializer(serializers.BaseSerializer):  # pylint: disable=abstract-method
@@ -33,6 +38,15 @@ class AvailableCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = AvailableCourse
         fields = ['id', 'course', 'active']
+
+
+class FlexibleCatalogSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the FlexibleCatalog model.
+    """
+    class Meta:
+        model = FlexibleCatalogModel
+        fields = ['id', 'slug', 'name']
 
 
 class FixedCatalogSerializer(serializers.ModelSerializer):

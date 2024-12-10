@@ -1,6 +1,11 @@
 """Filters for the api.v0 module."""
 import django_filters
-from catalog_plugin.models import AvailableCourse, FixedCatalog, CatalogCourses
+from catalog_plugin.models import (
+    FlexibleCatalogModel,
+    AvailableCourse,
+    FixedCatalog,
+    CatalogCourses,
+)
 
 
 class AvailableCourseFilter(django_filters.FilterSet):
@@ -15,6 +20,19 @@ class AvailableCourseFilter(django_filters.FilterSet):
         """Meta class."""
         model = AvailableCourse
         fields = ['course_id', 'active']
+
+
+class FlexibleCatalogFilter(django_filters.FilterSet):
+    """
+    FilterSet for FlexibleCatalogModel.
+    Allows filtering by name and slug.
+    """
+    name = django_filters.CharFilter(field_name='name', lookup_expr='icontains')
+    slug = django_filters.CharFilter(field_name='slug', lookup_expr='icontains')
+
+    class Meta:
+        model = FlexibleCatalogModel
+        fields = ['name', 'slug']
 
 
 class FixedCatalogFilter(django_filters.FilterSet):
