@@ -138,3 +138,6 @@ exclude = ['migrations']
 
 [tool.django-stubs]
 django_settings_module = 'test_settings'
+
+[project.dynamic]
+license = {file = "LICENSE.txt"}

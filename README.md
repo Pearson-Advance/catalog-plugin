@@ -28,3 +28,7 @@ Then run `tutor config save`, `tutor images build openedx` and `tutor local laun
 - Run ``bump-my-version bump [type of change: e.g: minor]``
 - Verify the version in `catalog_plugin/__init__.py` and `pyproject.toml`
 - Update the `CHANGELOG.md`
+
+### License
+
+The code in this repository is licensed under version 2.0 of the Apache unless otherwise noted.
