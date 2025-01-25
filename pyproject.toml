@@ -12,6 +12,7 @@ build-backend = 'setuptools.build_meta'
 name = 'catalog-plugin'
 description = 'Open edX Platform Catalog Plugin.'
 readme = 'README.md'
+license = { file = 'LICENSE.txt' }
 authors = [{ name = 'eduNEXT', email = 'contact@edunext.co' }]
 keywords = ['Python', 'Django', 'Open edX', 'Plugin', 'Catalog']
 classifiers = [
@@ -138,6 +139,3 @@ exclude = ['migrations']
 
 [tool.django-stubs]
 django_settings_module = 'test_settings'
-
-[project.dynamic]
-license = {file = "LICENSE.txt"}
