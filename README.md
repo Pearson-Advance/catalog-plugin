@@ -1,5 +1,5 @@
 # catalog-plugin
-This repository contains Catalog plugin for the Pearson OpenEdX platform.
+This repository contains Catalog plugin for the OpenEdX platform.
 
 ## Installation
 
