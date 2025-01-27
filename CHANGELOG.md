@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning (http://semver.org/).
 There should always be an "Unreleased" section for changes pending release.
 ----
 
+### Version 0.2.0 - Jan 27, 2025
+**Changes:**
+
+  - Create catalog_api_plugin for external intregrations.
+  - Add Apache2.0 License for the project.
+
 ### Version 0.1.0 - Dic 3, 2024
 **Changes:**
 
