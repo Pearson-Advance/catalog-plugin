@@ -65,7 +65,7 @@ class FlexibleCatalogModel(TimeStampedModel):
 class FixedCatalog(FlexibleCatalogModel):
     """Represent the custom fixed catalog model."""
 
-    course_runs = models.ManyToManyField('course_overviews.CourseOverview', blank=True)
+    course_runs = models.ManyToManyField(course_overview(), blank=True)
 
     def get_course_runs(self):
         """
