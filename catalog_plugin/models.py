@@ -91,6 +91,9 @@ class CatalogCourses(FlexibleCatalogModel):
             associated with this catalog course offering. (blank=True)
     """
 
+    class Meta:
+        verbose_name_plural = 'Catalog Courses'
+
     courses = models.ManyToManyField(  # type: ignore
         AvailableCourse,
         verbose_name='Available Courses',
