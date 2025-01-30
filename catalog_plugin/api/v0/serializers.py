@@ -50,23 +50,19 @@ class FlexibleCatalogSerializer(serializers.ModelSerializer):
 
     def get_courses(self, obj):
         """Return courses serialized with the correct serializer."""
-        obj = FlexibleCatalogModel.objects.get_subclass(id=obj.id)
+        instance = FlexibleCatalogModel.objects.get_subclass(id=obj.id)
 
-        courses = obj.get_courses()
-        if not courses:
+        courses_qs = instance.get_courses()
+
+        if not courses_qs:
             return []
 
-        serializer_mapping = {
-            FixedCatalog: CourseKeySerializer,
-            CatalogCourses: AvailableCourseSerializer,
-        }
-
-        serializer_class = serializer_mapping.get(type(obj))
+        serializer_class = getattr(instance, 'courses_serializer_class', None)
 
         if not serializer_class:
             return []
 
-        return serializer_class(courses, many=True).data
+        return serializer_class(courses_qs, many=True).data
 
 
 class FixedCatalogSerializer(serializers.ModelSerializer):
