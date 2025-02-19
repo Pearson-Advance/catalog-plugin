@@ -24,21 +24,28 @@ class FlexibleCatalogAPIClient:
     A Python API client for FlexibleCatalogModel to interact with flexible catalog models backend-to-backend.
     """
 
-    def __init__(self, catalog_uuid=None, catalog_slug=None):
+    def __init__(self, catalog_uuid=None, catalog_slug=None, catalog_uuid_list=None):
         """
-        Initialize the API client with a catalog UUID and/or a catalog slug.
-        Validation is removed per boss's request.
+        Initialize the API client with a catalog UUID, catalog slug, and/or a list of catalog UUIDs.
+        At least one of these must be provided.
         """
-        if not (catalog_uuid or catalog_slug):
-            raise ValueError('Either catalog_uuid or catalog_slug must be provided.')
+        if not (catalog_uuid or catalog_slug or catalog_uuid_list):
+            raise ValueError('Either catalog_uuid, catalog_slug, or catalog_uuid_list must be provided.')
 
         if catalog_uuid and not isinstance(catalog_uuid, (str, uuid.UUID)):
             raise TypeError('catalog_uuid must be a string or a UUID.')
         if catalog_slug and not isinstance(catalog_slug, str):
             raise TypeError('catalog_slug must be a string.')
+        if catalog_uuid_list:
+            if not isinstance(catalog_uuid_list, list):
+                raise TypeError('catalog_uuid_list must be a list.')
+            for item in catalog_uuid_list:
+                if not isinstance(item, (str, uuid.UUID)):
+                    raise TypeError('Each element in catalog_uuid_list must be a string or a UUID.')
 
         self.catalog_uuid = catalog_uuid
         self.catalog_slug = catalog_slug
+        self.catalog_uuid_list = catalog_uuid_list
 
     def _validate_fields(self, data):
         """
@@ -66,15 +73,25 @@ class FlexibleCatalogAPIClient:
             FlexibleCatalogModel or QuerySet.none(): The retrieved flexible catalog object or empty QuerySet if not found.
         """
         try:
-            if self.catalog_uuid:
+            if self.catalog_uuid_list:
+                catalogs = FlexibleCatalogModel.objects.filter(id__in=self.catalog_uuid_list)
+                if catalogs.exists():
+                    return catalogs
+                else:
+                    logger.warning(
+                        'No FlexibleCatalogModels found for the provided catalog_uuid_list: %s',
+                        self.catalog_uuid_list,
+                    )
+            elif self.catalog_uuid:
                 return FlexibleCatalogModel.objects.get(id=self.catalog_uuid)
             elif self.catalog_slug:
                 return FlexibleCatalogModel.objects.get(slug=self.catalog_slug)
         except FlexibleCatalogModel.DoesNotExist:
             logger.warning(
-                'FlexibleCatalogModel not found. UUID: %s, Slug: %s',
+                'FlexibleCatalogModel not found. UUID: %s, Slug: %s, catalog_uuid_list: %s',
                 self.catalog_uuid,
                 self.catalog_slug,
+                self.catalog_uuid_list,
             )
         return FlexibleCatalogModel.objects.none()
 
