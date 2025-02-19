@@ -2,3 +2,8 @@
 -c constraints.txt
 
 Django
+django-model-utils
+djangorestframework
+edx-opaque-keys
+edx-drf-extensions
+django-filter
