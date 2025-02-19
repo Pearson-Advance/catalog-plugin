@@ -4,10 +4,9 @@
 #
 #    pip-compile --output-file=requirements/pip-tools.txt requirements/pip-tools.in
 #
-
 build==1.2.2.post1
     # via pip-tools
-click==8.1.7
+click==8.1.8
     # via pip-tools
 importlib-metadata==8.5.0
     # via build
@@ -21,7 +20,7 @@ pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-tomli==2.1.0
+tomli==2.2.1
     # via
     #   build
     #   pip-tools

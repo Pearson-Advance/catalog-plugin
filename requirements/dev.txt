@@ -4,9 +4,10 @@
 #
 #    pip-compile --output-file=requirements/dev.txt requirements/dev.in
 #
-
 annotated-types==0.7.0
     # via pydantic
+anyio==4.5.2
+    # via httpx
 asgiref==3.8.1
     # via
     #   -r requirements/base.txt
@@ -20,7 +21,7 @@ astroid==3.2.4 ; python_version < "3.9"
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint
-attrs==24.2.0
+attrs==25.1.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -35,13 +36,28 @@ backports-zoneinfo==0.2.1 ; python_version < "3.9"
     #   django
 bracex==2.5.post1
     # via wcmatch
-bump-my-version==0.28.1
+bump-my-version==0.32.1
     # via -r requirements/dev.in
-cachetools==5.5.0
+cachetools==5.5.1
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   tox
+certifi==2025.1.31
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   httpcore
+    #   httpx
+    #   requests
+cffi==1.17.1
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   cryptography
+    #   pynacl
 cfgv==3.4.0
     # via
     #   -r requirements/quality.txt
@@ -51,9 +67,19 @@ chardet==5.2.0
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   tox
-click==8.1.7
+charset-normalizer==3.4.1
     # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   requests
+click==8.1.8
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
     #   bump-my-version
+    #   edx-django-utils
     #   rich-click
 colorama==0.4.6
     # via
@@ -64,6 +90,12 @@ coverage==7.6.1
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
+cryptography==44.0.1
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   pyjwt
 dill==0.3.9
     # via
     #   -r requirements/quality.txt
@@ -74,26 +106,91 @@ distlib==0.3.9
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   virtualenv
-django==4.2.16
+django==4.2.19
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
+    #   django-crum
+    #   django-filter
+    #   django-model-utils
     #   django-stubs
     #   django-stubs-ext
-django-stubs[compatible-mypy]==5.1.1
+    #   django-waffle
+    #   djangorestframework
+    #   drf-jwt
+    #   edx-django-utils
+    #   edx-drf-extensions
+django-crum==0.7.9
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-django-utils
+django-filter==22.1
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+django-model-utils==4.2.0
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+django-stubs[compatible-mypy]==5.1.3
+    # via -r requirements/quality.txt
+django-stubs-ext==5.1.3
     # via
     #   -r requirements/quality.txt
     #   django-stubs
-django-stubs-ext==5.1.1
+django-waffle==4.2.0
     # via
+    #   -r requirements/base.txt
     #   -r requirements/quality.txt
-    #   django-stubs
+    #   -r requirements/test.txt
+    #   edx-django-utils
+    #   edx-drf-extensions
+djangorestframework==3.12.4
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   drf-jwt
+    #   edx-drf-extensions
+drf-jwt==1.19.2
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+edx-django-utils==7.1.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+edx-drf-extensions==8.3.1
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+edx-opaque-keys==2.3.0
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
 exceptiongroup==1.2.2
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
+    #   anyio
     #   pytest
 filelock==3.16.1
     # via
@@ -101,10 +198,30 @@ filelock==3.16.1
     #   -r requirements/test.txt
     #   tox
     #   virtualenv
+future==1.0.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   pyjwkest
+h11==0.14.0
+    # via httpcore
+httpcore==1.0.7
+    # via httpx
+httpx==0.28.1
+    # via bump-my-version
 identify==2.6.1
     # via
     #   -r requirements/quality.txt
     #   pre-commit
+idna==3.10
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   anyio
+    #   httpx
+    #   requests
 importlib-resources==6.4.5
     # via
     #   -r requirements/quality.txt
@@ -139,7 +256,7 @@ mccabe==0.7.0
     #   pylint
 mdurl==0.1.2
     # via markdown-it-py
-mypy==1.13.0
+mypy==1.14.1
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -147,6 +264,12 @@ mypy-extensions==1.0.0
     # via
     #   -r requirements/quality.txt
     #   mypy
+newrelic==10.6.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-django-utils
 nodeenv==1.9.1
     # via
     #   -r requirements/quality.txt
@@ -158,6 +281,12 @@ packaging==24.2
     #   pyproject-api
     #   pytest
     #   tox
+pbr==6.1.1
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   stevedore
 pkgutil-resolve-name==1.3.10
     # via
     #   -r requirements/quality.txt
@@ -178,26 +307,57 @@ pluggy==1.5.0
     #   tox
 pre-commit==3.5.0
     # via -r requirements/quality.txt
-prompt-toolkit==3.0.36
+prompt-toolkit==3.0.50
     # via questionary
+psutil==7.0.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-django-utils
 pycodestyle==2.12.1
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-pydantic==2.10.1
+pycparser==2.22
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   cffi
+pycryptodomex==3.21.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   pyjwkest
+pydantic==2.10.6
     # via
     #   bump-my-version
     #   pydantic-settings
-pydantic-core==2.27.1
+pydantic-core==2.27.2
     # via pydantic
-pydantic-settings==2.6.1
+pydantic-settings==2.7.1
     # via bump-my-version
 pydocstyle==6.3.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-pygments==2.18.0
+pygments==2.19.1
     # via rich
+pyjwkest==1.4.2
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+pyjwt[crypto]==2.9.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   drf-jwt
+    #   edx-drf-extensions
 pylint==3.2.7
     # via
     #   -r requirements/quality.txt
@@ -213,27 +373,45 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint-django
+pymongo==3.13.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-opaque-keys
+pynacl==1.5.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-django-utils
 pyproject-api==1.8.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   tox
-pytest==8.3.3
+pytest==8.3.4
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pytest-django
-pytest-django==4.9.0
+pytest-django==4.10.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
+python-dateutil==2.9.0.post0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
 python-dotenv==1.0.1
     # via pydantic-settings
 pyyaml==6.0.2
     # via
     #   -r requirements/quality.txt
     #   pre-commit
-questionary==2.0.1
+questionary==2.1.0
     # via bump-my-version
 referencing==0.35.1
     # via
@@ -242,11 +420,18 @@ referencing==0.35.1
     #   jsonschema
     #   jsonschema-specifications
     #   types-jsonschema
+requests==2.32.3
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+    #   pyjwkest
 rich==13.9.4
     # via
     #   bump-my-version
     #   rich-click
-rich-click==1.8.4
+rich-click==1.8.5
     # via bump-my-version
 rpds-py==0.20.1
     # via
@@ -254,18 +439,41 @@ rpds-py==0.20.1
     #   -r requirements/test.txt
     #   jsonschema
     #   referencing
+semantic-version==2.10.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+six==1.17.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+    #   pyjwkest
+    #   python-dateutil
+sniffio==1.3.1
+    # via anyio
 snowballstemmer==2.2.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pydocstyle
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   django
-tomli==2.1.0
+stevedore==5.3.0
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-django-utils
+    #   edx-opaque-keys
+tomli==2.2.1
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -281,13 +489,13 @@ tomlkit==0.13.2
     #   -r requirements/test.txt
     #   bump-my-version
     #   pylint
-tox==4.23.2
+tox==4.24.1
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-types-jsonschema==4.23.0.20240813
+types-jsonschema==4.23.0.20241208
     # via -r requirements/quality.txt
-types-pyyaml==6.0.12.20240917
+types-pyyaml==6.0.12.20241230
     # via
     #   -r requirements/quality.txt
     #   django-stubs
@@ -297,6 +505,7 @@ typing-extensions==4.12.2
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   annotated-types
+    #   anyio
     #   asgiref
     #   astroid
     #   django-stubs
@@ -308,7 +517,13 @@ typing-extensions==4.12.2
     #   rich
     #   rich-click
     #   tox
-virtualenv==20.27.1
+urllib3==2.2.3
+    # via
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   requests
+virtualenv==20.29.2
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -323,3 +538,6 @@ zipp==3.20.2
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   importlib-resources
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
