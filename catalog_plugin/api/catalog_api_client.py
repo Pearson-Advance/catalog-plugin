@@ -4,6 +4,7 @@ import logging
 
 from django.core.validators import validate_slug
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys import InvalidKeyError
@@ -24,21 +25,27 @@ class FlexibleCatalogAPIClient:
     A Python API client for FlexibleCatalogModel to interact with flexible catalog models backend-to-backend.
     """
 
-    def __init__(self, catalog_uuid=None, catalog_slug=None):
+    def __init__(self, catalog_uuid=None, catalog_slug=None, lookup_dict=None):
         """
-        Initialize the API client with a catalog UUID and/or a catalog slug.
-        Validation is removed per boss's request.
+        Initialize the API client with a catalog UUID, catalog slug, and/or a dict that contains the lookup
+        fields to be used.
+
+        At least one of these must be provided.
         """
-        if not (catalog_uuid or catalog_slug):
-            raise ValueError('Either catalog_uuid or catalog_slug must be provided.')
+        if not (catalog_uuid or catalog_slug or lookup_dict):
+            raise ValueError('Either catalog_uuid, catalog_slug, or lookup_dict must be provided.')
 
         if catalog_uuid and not isinstance(catalog_uuid, (str, uuid.UUID)):
             raise TypeError('catalog_uuid must be a string or a UUID.')
         if catalog_slug and not isinstance(catalog_slug, str):
             raise TypeError('catalog_slug must be a string.')
+        if lookup_dict:
+            if not isinstance(lookup_dict, dict):
+                raise TypeError('lookup_dict must be a valid dictionary.')
 
         self.catalog_uuid = catalog_uuid
         self.catalog_slug = catalog_slug
+        self.lookup_dict = lookup_dict
 
     def _validate_fields(self, data):
         """
@@ -66,15 +73,21 @@ class FlexibleCatalogAPIClient:
             FlexibleCatalogModel or QuerySet.none(): The retrieved flexible catalog object or empty QuerySet if not found.
         """
         try:
-            if self.catalog_uuid:
+            if self.lookup_dict:
+                lookup_query = Q()
+                for key, value in self.lookup_dict.items():
+                    lookup_query &= Q(**{key: value})
+                return FlexibleCatalogModel.objects.filter(lookup_query)
+            elif self.catalog_uuid:
                 return FlexibleCatalogModel.objects.get(id=self.catalog_uuid)
             elif self.catalog_slug:
                 return FlexibleCatalogModel.objects.get(slug=self.catalog_slug)
         except FlexibleCatalogModel.DoesNotExist:
             logger.warning(
-                'FlexibleCatalogModel not found. UUID: %s, Slug: %s',
+                'FlexibleCatalogModel not found. UUID: %s, Slug: %s, Lookup Dict: %s',
                 self.catalog_uuid,
                 self.catalog_slug,
+                self.lookup_dict,
             )
         return FlexibleCatalogModel.objects.none()
 
