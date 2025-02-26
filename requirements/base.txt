@@ -4,32 +4,38 @@
 #
 #    pip-compile --output-file=requirements/base.txt requirements/base.in
 #
-asgiref==3.8.1
-    # via django
-backports-zoneinfo==0.2.1 ; python_version < "3.9"
+asgiref==3.5.2
     # via
     #   -c requirements/constraints.txt
     #   django
-certifi==2025.1.31
-    # via requests
-cffi==1.17.1
+certifi==2022.9.24
     # via
+    #   -c requirements/constraints.txt
+    #   requests
+cffi==1.15.1
+    # via
+    #   -c requirements/constraints.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.1
-    # via requests
-click==8.1.8
-    # via edx-django-utils
-cryptography==44.0.1
-    # via pyjwt
-django==4.2.19
+charset-normalizer==2.0.12
+    # via
+    #   -c requirements/constraints.txt
+    #   requests
+click==8.1.3
+    # via
+    #   -c requirements/constraints.txt
+    #   edx-django-utils
+cryptography==36.0.2
+    # via
+    #   -c requirements/constraints.txt
+    #   pyjwt
+django==3.2.17
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
     #   django-crum
     #   django-filter
     #   django-model-utils
-    #   django-waffle
     #   djangorestframework
     #   drf-jwt
     #   edx-django-utils
@@ -44,8 +50,9 @@ django-model-utils==4.2.0
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
-django-waffle==4.2.0
+django-waffle==3.0.0
     # via
+    #   -c requirements/constraints.txt
     #   edx-django-utils
     #   edx-drf-extensions
 djangorestframework==3.12.4
@@ -56,8 +63,10 @@ djangorestframework==3.12.4
     #   edx-drf-extensions
 drf-jwt==1.19.2
     # via edx-drf-extensions
-edx-django-utils==7.1.0
-    # via edx-drf-extensions
+edx-django-utils==5.2.0
+    # via
+    #   -c requirements/constraints.txt
+    #   edx-drf-extensions
 edx-drf-extensions==8.3.1
     # via
     #   -c requirements/constraints.txt
@@ -67,53 +76,84 @@ edx-opaque-keys==2.3.0
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
     #   edx-drf-extensions
-future==1.0.0
-    # via pyjwkest
-idna==3.10
-    # via requests
-newrelic==10.6.0
-    # via edx-django-utils
-pbr==6.1.1
-    # via stevedore
-psutil==7.0.0
-    # via edx-django-utils
-pycparser==2.22
-    # via cffi
-pycryptodomex==3.21.0
-    # via pyjwkest
+future==0.18.2
+    # via
+    #   -c requirements/constraints.txt
+    #   pyjwkest
+idna==3.4
+    # via
+    #   -c requirements/constraints.txt
+    #   requests
+newrelic==8.2.1
+    # via
+    #   -c requirements/constraints.txt
+    #   edx-django-utils
+pbr==5.10.0
+    # via
+    #   -c requirements/constraints.txt
+    #   stevedore
+psutil==5.9.2
+    # via
+    #   -c requirements/constraints.txt
+    #   edx-django-utils
+pycparser==2.21
+    # via
+    #   -c requirements/constraints.txt
+    #   cffi
+pycryptodomex==3.15.0
+    # via
+    #   -c requirements/constraints.txt
+    #   pyjwkest
 pyjwkest==1.4.2
     # via edx-drf-extensions
-pyjwt[crypto]==2.9.0
+pyjwt[crypto]==2.5.0
     # via
+    #   -c requirements/constraints.txt
     #   drf-jwt
     #   edx-drf-extensions
-pymongo==3.13.0
-    # via edx-opaque-keys
-pynacl==1.5.0
-    # via edx-django-utils
-python-dateutil==2.9.0.post0
-    # via edx-drf-extensions
-requests==2.32.3
+pymongo==3.12.3
     # via
+    #   -c requirements/constraints.txt
+    #   edx-opaque-keys
+pynacl==1.5.0
+    # via
+    #   -c requirements/constraints.txt
+    #   edx-django-utils
+python-dateutil==2.8.2
+    # via
+    #   -c requirements/constraints.txt
+    #   edx-drf-extensions
+pytz==2022.2.1
+    # via
+    #   -c requirements/constraints.txt
+    #   django
+requests==2.28.1
+    # via
+    #   -c requirements/constraints.txt
     #   edx-drf-extensions
     #   pyjwkest
 semantic-version==2.10.0
     # via edx-drf-extensions
-six==1.17.0
+six==1.16.0
     # via
+    #   -c requirements/constraints.txt
     #   edx-drf-extensions
     #   pyjwkest
     #   python-dateutil
-sqlparse==0.5.3
-    # via django
-stevedore==5.3.0
+sqlparse==0.4.3
     # via
+    #   -c requirements/constraints.txt
+    #   django
+stevedore==4.0.0
+    # via
+    #   -c requirements/constraints.txt
     #   edx-django-utils
     #   edx-opaque-keys
-typing-extensions==4.12.2
-    # via asgiref
-urllib3==2.2.3
-    # via requests
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
+types-cryptography==3.3.23
+    # via
+    #   -c requirements/constraints.txt
+    #   pyjwt
+urllib3==1.26.12
+    # via
+    #   -c requirements/constraints.txt
+    #   requests

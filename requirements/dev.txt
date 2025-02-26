@@ -4,55 +4,39 @@
 #
 #    pip-compile --output-file=requirements/dev.txt requirements/dev.in
 #
-annotated-types==0.7.0
-    # via pydantic
-anyio==4.5.2
-    # via httpx
-asgiref==3.8.1
+asgiref==3.5.2
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   django
-    #   django-stubs
-astroid==3.2.4 ; python_version < "3.9"
+astroid==2.11.7 ; python_version < "3.9"
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint
-attrs==25.1.0
+attrs==22.1.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   jsonschema
+    #   pytest
     #   referencing
-backports-zoneinfo==0.2.1 ; python_version < "3.9"
+bump-my-version==0.10.0
+    # via -r requirements/dev.in
+certifi==2022.9.24
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   django
-bracex==2.5.post1
-    # via wcmatch
-bump-my-version==0.32.1
-    # via -r requirements/dev.in
-cachetools==5.5.1
-    # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   tox
-certifi==2025.1.31
-    # via
-    #   -r requirements/base.txt
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   httpcore
-    #   httpx
     #   requests
-cffi==1.17.1
+cffi==1.15.1
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -62,51 +46,47 @@ cfgv==3.4.0
     # via
     #   -r requirements/quality.txt
     #   pre-commit
-chardet==5.2.0
+charset-normalizer==2.0.12
     # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   tox
-charset-normalizer==3.4.1
-    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   requests
-click==8.1.8
+click==8.1.3
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   bump-my-version
     #   edx-django-utils
     #   rich-click
-colorama==0.4.6
+coverage==6.5.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   tox
-coverage==7.6.1
+cryptography==36.0.2
     # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-cryptography==44.0.1
-    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pyjwt
-dill==0.3.9
+dill==0.3.5.1
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint
-distlib==0.3.9
+distlib==0.3.6
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   virtualenv
-django==4.2.19
+django==3.2.17
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
@@ -117,7 +97,6 @@ django==4.2.19
     #   django-model-utils
     #   django-stubs
     #   django-stubs-ext
-    #   django-waffle
     #   djangorestframework
     #   drf-jwt
     #   edx-django-utils
@@ -140,14 +119,15 @@ django-model-utils==4.2.0
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-django-stubs[compatible-mypy]==5.1.3
+django-stubs[compatible-mypy]==1.13.2
     # via -r requirements/quality.txt
 django-stubs-ext==5.1.3
     # via
     #   -r requirements/quality.txt
     #   django-stubs
-django-waffle==4.2.0
+django-waffle==3.0.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -167,8 +147,9 @@ drf-jwt==1.19.2
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-drf-extensions
-edx-django-utils==7.1.0
+edx-django-utils==5.2.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -186,67 +167,60 @@ edx-opaque-keys==2.3.0
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-drf-extensions
-exceptiongroup==1.2.2
+filelock==3.8.0
     # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   anyio
-    #   pytest
-filelock==3.16.1
-    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   tox
     #   virtualenv
-future==1.0.0
+future==0.18.2
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pyjwkest
-h11==0.14.0
-    # via httpcore
-httpcore==1.0.7
-    # via httpx
-httpx==0.28.1
-    # via bump-my-version
 identify==2.6.1
     # via
     #   -r requirements/quality.txt
     #   pre-commit
-idna==3.10
+idna==3.4
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   anyio
-    #   httpx
     #   requests
-importlib-resources==6.4.5
+    #   yarl
+importlib-resources==5.10.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   jsonschema
-    #   jsonschema-specifications
-iniconfig==2.0.0
+iniconfig==1.1.1
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pytest
-isort==5.13.2
+isort==5.10.1
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint
-jsonschema==4.23.0
+jsonschema==4.16.0
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+lazy-object-proxy==1.10.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-jsonschema-specifications==2023.12.1
-    # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   jsonschema
+    #   astroid
 markdown-it-py==3.0.0
     # via rich
 mccabe==0.7.0
@@ -256,33 +230,42 @@ mccabe==0.7.0
     #   pylint
 mdurl==0.1.2
     # via markdown-it-py
-mypy==1.14.1
+multidict==6.1.0
     # via
+    #   -r requirements/quality.txt
+    #   yarl
+mypy==0.982
+    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   django-stubs
-mypy-extensions==1.0.0
+mypy-extensions==0.4.3
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   mypy
-newrelic==10.6.0
+newrelic==8.2.1
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-django-utils
-nodeenv==1.9.1
+nodeenv==1.7.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   pre-commit
-packaging==24.2
+packaging==21.3
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   pyproject-api
     #   pytest
     #   tox
-pbr==6.1.1
+pbr==5.10.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -292,136 +275,160 @@ pkgutil-resolve-name==1.3.10
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   jsonschema
-platformdirs==4.3.6
+platformdirs==2.5.2
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint
-    #   tox
     #   virtualenv
-pluggy==1.5.0
+pluggy==1.0.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pytest
     #   tox
 pre-commit==3.5.0
     # via -r requirements/quality.txt
-prompt-toolkit==3.0.50
-    # via questionary
-psutil==7.0.0
+psutil==5.9.2
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-django-utils
-pycodestyle==2.12.1
+py==1.11.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-pycparser==2.22
+    #   pytest
+    #   tox
+pycodestyle==2.8.0
     # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+pycparser==2.21
+    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   cffi
-pycryptodomex==3.21.0
+pycryptodomex==3.15.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pyjwkest
-pydantic==2.10.6
+pydantic==1.10.2
     # via
+    #   -c requirements/constraints.txt
     #   bump-my-version
-    #   pydantic-settings
-pydantic-core==2.27.2
-    # via pydantic
-pydantic-settings==2.7.1
-    # via bump-my-version
 pydocstyle==6.3.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-pygments==2.19.1
-    # via rich
+pygments==2.13.0
+    # via
+    #   -c requirements/constraints.txt
+    #   rich
 pyjwkest==1.4.2
     # via
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-drf-extensions
-pyjwt[crypto]==2.9.0
+pyjwt[crypto]==2.5.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   drf-jwt
     #   edx-drf-extensions
-pylint==3.2.7
+pylint==2.13.9
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint-django
     #   pylint-plugin-utils
-pylint-django==2.5.5
+pylint-django==2.5.3
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-pylint-plugin-utils==0.8.2
+pylint-plugin-utils==0.7
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pylint-django
-pymongo==3.13.0
+pymongo==3.12.3
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-opaque-keys
 pynacl==1.5.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-django-utils
-pyproject-api==1.8.0
+pyparsing==3.1.4
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   tox
-pytest==8.3.4
-    # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   pytest-django
-pytest-django==4.10.0
-    # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-python-dateutil==2.9.0.post0
-    # via
-    #   -r requirements/base.txt
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   edx-drf-extensions
-python-dotenv==1.0.1
-    # via pydantic-settings
-pyyaml==6.0.2
-    # via
-    #   -r requirements/quality.txt
-    #   pre-commit
-questionary==2.1.0
-    # via bump-my-version
-referencing==0.35.1
+    #   packaging
+pyrsistent==0.20.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   jsonschema
-    #   jsonschema-specifications
-    #   types-jsonschema
-requests==2.32.3
+    #   referencing
+pytest==7.1.3
     # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   pytest-django
+pytest-django==4.5.2
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+python-dateutil==2.8.2
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   edx-drf-extensions
+pytz==2022.2.1
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   django
+pyyaml==6.0
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   pre-commit
+referencing==0.8.11
+    # via
+    #   -r requirements/quality.txt
+    #   types-jsonschema
+requests==2.28.1
+    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
@@ -431,110 +438,120 @@ rich==13.9.4
     # via
     #   bump-my-version
     #   rich-click
-rich-click==1.8.5
+rich-click==1.8.6
     # via bump-my-version
-rpds-py==0.20.1
-    # via
-    #   -r requirements/quality.txt
-    #   -r requirements/test.txt
-    #   jsonschema
-    #   referencing
 semantic-version==2.10.0
     # via
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-drf-extensions
-six==1.17.0
+six==1.16.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-drf-extensions
     #   pyjwkest
     #   python-dateutil
-sniffio==1.3.1
-    # via anyio
+    #   tox
 snowballstemmer==2.2.0
     # via
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pydocstyle
-sqlparse==0.5.3
+sqlparse==0.4.3
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   django
-stevedore==5.3.0
+stevedore==4.0.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   edx-django-utils
     #   edx-opaque-keys
-tomli==2.2.1
+tomli==2.0.1
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   django-stubs
     #   mypy
     #   pylint
-    #   pyproject-api
     #   pytest
     #   tox
 tomlkit==0.13.2
+    # via bump-my-version
+tox==3.26.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   bump-my-version
-    #   pylint
-tox==4.24.1
+types-cryptography==3.3.23
     # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
+    #   pyjwt
 types-jsonschema==4.23.0.20241208
     # via -r requirements/quality.txt
+types-pytz==2024.2.0.20241221
+    # via
+    #   -r requirements/quality.txt
+    #   django-stubs
 types-pyyaml==6.0.12.20241230
     # via
     #   -r requirements/quality.txt
     #   django-stubs
-typing-extensions==4.12.2
+typing-extensions==4.4.0
     # via
-    #   -r requirements/base.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
-    #   annotated-types
-    #   anyio
-    #   asgiref
     #   astroid
     #   django-stubs
     #   django-stubs-ext
+    #   multidict
     #   mypy
     #   pydantic
-    #   pydantic-core
     #   pylint
     #   rich
     #   rich-click
-    #   tox
-urllib3==2.2.3
+urllib3==1.26.12
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   requests
-virtualenv==20.29.2
+virtualenv==20.16.5
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   pre-commit
     #   tox
-wcmatch==10.0
-    # via bump-my-version
-wcwidth==0.2.13
-    # via prompt-toolkit
-zipp==3.20.2
+wrapt==1.14.1
     # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   -r requirements/test.txt
+    #   astroid
+yarl==1.8.1
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/quality.txt
+    #   referencing
+zipp==3.9.0
+    # via
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   -r requirements/test.txt
     #   importlib-resources
