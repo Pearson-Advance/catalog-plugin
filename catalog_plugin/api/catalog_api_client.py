@@ -77,11 +77,11 @@ class FlexibleCatalogAPIClient:
                 lookup_query = Q()
                 for key, value in self.lookup_dict.items():
                     lookup_query &= Q(**{key: value})
-                return FlexibleCatalogModel.objects.filter(lookup_query)
+                return FlexibleCatalogModel.objects.filter(lookup_query).select_subclasses()
             elif self.catalog_uuid:
-                return FlexibleCatalogModel.objects.get(id=self.catalog_uuid)
+                return FlexibleCatalogModel.objects.get_subclass(id=self.catalog_uuid)
             elif self.catalog_slug:
-                return FlexibleCatalogModel.objects.get(slug=self.catalog_slug)
+                return FlexibleCatalogModel.objects.get_subclass(slug=self.catalog_slug)
         except FlexibleCatalogModel.DoesNotExist:
             logger.warning(
                 'FlexibleCatalogModel not found. UUID: %s, Slug: %s, Lookup Dict: %s',
