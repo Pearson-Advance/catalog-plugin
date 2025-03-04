@@ -22,6 +22,10 @@ class AvailableCourse(models.Model):
     course = models.ForeignKey(course_overview(), on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
+    class Meta:
+        """Ensure that the same course is not recorded twice."""
+        unique_together = ('course',)
+
     def __str__(self):
         """Available Courses object is represented according to the course and status.
 
@@ -54,7 +58,12 @@ class FlexibleCatalogModel(TimeStampedModel):
     objects = InheritanceManager()
 
     def get_courses(self):
-        """Catalog class returns every AvailableCourse."""
+        """Delegates to the subclass's get_courses method if available."""
+        instance = FlexibleCatalogModel.objects.get_subclass(id=self.id)
+
+        if instance.__class__ != FlexibleCatalogModel:
+            return instance.get_courses()
+
         return AvailableCourse.objects.all()
 
     def __str__(self):
@@ -67,7 +76,7 @@ class FixedCatalog(FlexibleCatalogModel):
 
     course_runs = models.ManyToManyField(course_overview(), blank=True)
 
-    def get_course_runs(self):
+    def get_courses(self):
         """
         Returns the associated course_runs.
         """
