@@ -131,4 +131,4 @@ class AvailableCourseAdmin(admin.ModelAdmin):
     """Admin for the AvailableCourse model."""
 
     list_display = ('id', 'course', 'active')
-    search_fields = ('course',)
+    search_fields = ('course__id',)
