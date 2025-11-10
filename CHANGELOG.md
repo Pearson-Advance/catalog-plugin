@@ -9,6 +9,11 @@ This project adheres to Semantic Versioning (http://semver.org/).
 There should always be an "Unreleased" section for changes pending release.
 ----
 
+### Version 0.2.6 - Nov 10, 2025
+**Changes:**
+
+  - Improve AvailableCourse lookup by course__key.
+
 ### Version 0.2.0 - Jan 27, 2025
 **Changes:**
 
