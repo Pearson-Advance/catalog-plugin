@@ -1,9 +1,7 @@
 """Serializers module for API v0."""
-# your_app_name/serializers.py
 from rest_framework import serializers
 from opaque_keys import InvalidKeyError
-from opaque_keys.edx.keys import CourseKey
-
+from catalog_plugin.edxapp_wrapper.course_module import course_overview
 from catalog_plugin.models import (
     FlexibleCatalogModel,
     AvailableCourse,
@@ -22,7 +20,7 @@ class CourseKeySerializer(serializers.BaseSerializer):  # pylint: disable=abstra
     def to_internal_value(self, data):
         """Validate the input value."""
         try:
-            return CourseKey.from_string(data)
+            return course_overview().objects.get(id=data)
         except InvalidKeyError:
             raise serializers.ValidationError(  # pylint: disable=raise-missing-from
                 'Invalid course key: {}.'.format(data),
@@ -44,9 +42,26 @@ class FlexibleCatalogSerializer(serializers.ModelSerializer):
     """
     Serializer for the FlexibleCatalog model.
     """
+    courses = serializers.SerializerMethodField()
+
     class Meta:
         model = FlexibleCatalogModel
-        fields = ['id', 'slug', 'name']
+        fields = '__all__'
+
+    def get_courses(self, obj):
+        """Return courses serialized with the correct serializer."""
+        obj = FlexibleCatalogModel.objects.get_subclass(id=obj.id)
+
+        courses = obj.get_courses()
+        if not courses:
+            return []
+
+        if isinstance(obj, FixedCatalog):
+            return CourseKeySerializer(courses, many=True).data
+        elif isinstance(obj, CatalogCourses):
+            return AvailableCourseSerializer(courses, many=True).data
+
+        return []
 
 
 class FixedCatalogSerializer(serializers.ModelSerializer):
