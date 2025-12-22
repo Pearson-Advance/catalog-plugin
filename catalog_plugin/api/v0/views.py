@@ -1,33 +1,26 @@
 """Views module for API v0."""
+from django_filters.rest_framework import DjangoFilterBackend
 from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
 from edx_rest_framework_extensions.permissions import IsAuthenticated, IsStaff
-from rest_framework import viewsets, filters
-from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, viewsets
 
-from catalog_plugin.models import (
-    FlexibleCatalogModel,
-    AvailableCourse,
-    FixedCatalog,
-    CatalogCourses,
+from catalog_plugin.api.v0.filters import (
+    AvailableCourseFilter,
+    CatalogCoursesFilter,
+    FixedCatalogFilter,
+    FlexibleCatalogFilter,
 )
 from catalog_plugin.api.v0.serializers import (
-    FlexibleCatalogSerializer,
     AvailableCourseSerializer,
-    FixedCatalogSerializer,
     CatalogCoursesSerializer,
+    FixedCatalogSerializer,
+    FlexibleCatalogSerializer,
 )
-from catalog_plugin.api.v0.filters import (
-    FlexibleCatalogFilter,
-    AvailableCourseFilter,
-    FixedCatalogFilter,
-    CatalogCoursesFilter,
-)
+from catalog_plugin.models import AvailableCourse, CatalogCourses, FixedCatalog, FlexibleCatalogModel
 
 
 class AvailableCourseViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing AvailableCourse instances.
-    """
+    """A viewset for viewing and editing AvailableCourse instances."""
 
     authentication_classes = (JwtAuthentication,)
     permission_classes = (IsAuthenticated, IsStaff)
@@ -42,13 +35,11 @@ class AvailableCourseViewSet(viewsets.ModelViewSet):
 
 
 class FlexibleCatalogViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing FlexibleCatalogModel instances.
-    """
+    """A viewset for viewing and editing FlexibleCatalogModel instances."""
 
     authentication_classes = (JwtAuthentication,)
     permission_classes = (IsAuthenticated, IsStaff)
-    queryset = FlexibleCatalogModel.objects.all()
+    queryset = FlexibleCatalogModel.objects.all()  # pylint: disable=assignment-from-no-return
     serializer_class = FlexibleCatalogSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -59,13 +50,11 @@ class FlexibleCatalogViewSet(viewsets.ModelViewSet):
 
 
 class FixedCatalogViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing FixedCatalog instances.
-    """
+    """A viewset for viewing and editing FixedCatalog instances."""
 
     authentication_classes = (JwtAuthentication,)
     permission_classes = (IsAuthenticated, IsStaff)
-    queryset = FixedCatalog.objects.all()
+    queryset = FixedCatalog.objects.all()  # pylint: disable=assignment-from-no-return
     serializer_class = FixedCatalogSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -76,13 +65,11 @@ class FixedCatalogViewSet(viewsets.ModelViewSet):
 
 
 class CatalogCoursesViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing CatalogCourses instances.
-    """
+    """A viewset for viewing and editing CatalogCourses instances."""
 
     authentication_classes = (JwtAuthentication,)
     permission_classes = (IsAuthenticated, IsStaff)
-    queryset = CatalogCourses.objects.all()
+    queryset = CatalogCourses.objects.all()  # pylint: disable=assignment-from-no-return
     serializer_class = CatalogCoursesSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]

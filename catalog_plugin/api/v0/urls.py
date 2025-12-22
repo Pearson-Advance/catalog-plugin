@@ -1,5 +1,5 @@
 """URL for the API v0."""
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from catalog_plugin.api.v0 import views
