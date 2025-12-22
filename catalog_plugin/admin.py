@@ -3,13 +3,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from catalog_plugin.models import (
-    AvailableCourse,
-    CatalogCourses,
-    DynamicCatalog,
-    FlexibleCatalogModel,
-    FixedCatalog,
-)
+from catalog_plugin.models import AvailableCourse, CatalogCourses, DynamicCatalog, FixedCatalog, FlexibleCatalogModel
 
 
 class CourseKeysMixin:
@@ -78,6 +72,8 @@ class FlexibleCatalogModelAdmin(admin.ModelAdmin, CourseKeysMixin):
 
 @admin.register(FixedCatalog)
 class FixedCatalogAdmin(admin.ModelAdmin, CourseKeysMixin):
+    """Admin for the FixedCatalog model."""
+
     list_display = ('__str__', 'course_keys')
     search_fields = ('flexible_catalog__name', 'flexible_catalog__slug', 'flexible_catalog__id')
     filter_horizontal = ('course_runs',)

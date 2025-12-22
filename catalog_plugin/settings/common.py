@@ -2,7 +2,6 @@
 
 from typing import Any
 
-
 INSTALLED_APPS = [
     'rest_framework',
     'django_filters',

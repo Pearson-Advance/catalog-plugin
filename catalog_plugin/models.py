@@ -47,9 +47,9 @@ class FlexibleCatalogModel(TimeStampedModel):
             (max_length=255)
     """
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # type: ignore
-    slug = models.SlugField(unique=True, blank=True, max_length=255)  # type: ignore
-    name = models.CharField(max_length=255, help_text='Human friendly')  # type: ignore
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    slug = models.SlugField(unique=True, blank=True, max_length=255)
+    name = models.CharField(max_length=255, help_text='Human friendly')
 
     objects = InheritanceManager()
 
@@ -65,15 +65,14 @@ class FlexibleCatalogModel(TimeStampedModel):
 class FixedCatalog(FlexibleCatalogModel):
     """Represent the custom fixed catalog model."""
 
-    course_runs = models.ManyToManyField(course_overview(), blank=True)
+    course_runs = models.ManyToManyField(course_overview(), blank=True)  # type: ignore[var-annotated]
 
     def get_course_runs(self):
-        """
-        Returns the associated course_runs.
-        """
+        """Return the associated course_runs."""
         return self.course_runs.all()
 
     def __str__(self):
+        """Get a string representation of this model instance."""
         return f'FixedCatalog: {self.id}'
 
 
@@ -92,9 +91,11 @@ class CatalogCourses(FlexibleCatalogModel):
     """
 
     class Meta:
+        """Meta class."""
+
         verbose_name_plural = 'Catalog Courses'
 
-    courses = models.ManyToManyField(  # type: ignore
+    courses = models.ManyToManyField(
         AvailableCourse,
         verbose_name='Available Courses',
     )
@@ -120,7 +121,7 @@ class DynamicCatalog(FlexibleCatalogModel):
             for retrieving courses. (optional, blank=True, null=True)
     """
 
-    query_string = models.TextField(  # type: ignore
+    query_string = models.TextField(
         help_text='Dynamic query string to filter courses.',
         blank=True,
         null=True,

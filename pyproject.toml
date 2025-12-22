@@ -20,20 +20,16 @@ classifiers = [
     'Environment :: Plugins',
     'Environment :: Web Environment',
     'Framework :: Django',
-    'Framework :: Django :: 3.2',
-    'Framework :: Django :: 4.2',
+    'Framework :: Django :: 5.2',
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
     'Topic :: Education',
     'Topic :: Education :: Computer Aided Instruction (CAI)',
 ]
-requires-python = '>=3.8'
+requires-python = '>=3.11'
 dynamic = ['version', 'dependencies']
 
 [project.urls]
@@ -42,7 +38,7 @@ Issues = 'https://github.com/Pearson-Advance/catalog-plugin/issues'
 Changelog = 'https://github.com/Pearson-Advance/catalog-plugin/blob/master/CHANGELOG.md'
 
 [tool.setuptools.dynamic]
-version = {attr = 'catalog_plugin.__version__'}
+version = { attr = 'catalog_plugin.__version__' }
 
 [project.entry-points.'lms.djangoapp']
 catalog = 'catalog_plugin.apps:CatalogPluginConfig'
@@ -70,13 +66,12 @@ python_files = ['test_*.py']
 [tool.tox]
 legacy_tox_ini = """
     [tox]
-    envlist = py{38,310,311,312}-django{32,42}, quality
+    envlist = py{311,312}-django52, quality
     skip_missing_interpreters = true
 
     [testenv]
     deps =
-        django32: Django>=3.2,<4.0
-        django42: Django>=4.2,<5.0
+        Django>=5.2,<5.3
         -r {toxinidir}/requirements/test.txt
     setenv =
         DJANGO_SETTINGS_MODULE = test_settings
@@ -102,7 +97,7 @@ legacy_tox_ini = """
 # Quality.
 # --------
 [tool.pylint.MASTER]
-py-version = '3.8.0'
+py-version = '3.11.0'
 load-plugins = 'pylint_django'
 django-settings-module = 'test_settings'
 ignore = ['migrations']
@@ -124,9 +119,14 @@ disable = [
 ]
 
 [tool.isort]
+profile = "django"
 line_length = 120
-known_first_party = ['catalog_plugin']
-skip_glob = ['**/migrations/*.py']
+known_first_party = ["catalog_plugin"]
+skip_glob = ["**/migrations/*.py"]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
 
 [tool.mypy]
 check_untyped_defs = true

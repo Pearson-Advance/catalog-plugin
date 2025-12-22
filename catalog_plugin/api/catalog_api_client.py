@@ -1,34 +1,24 @@
 """Catalogs API client module."""
-import uuid
 import logging
+import uuid
 
-from django.core.validators import validate_slug
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_slug
 from django.db.models import Q
-
 from opaque_keys.edx.keys import CourseKey
-from opaque_keys import InvalidKeyError
 
 from catalog_plugin.edxapp_wrapper.course_module import course_overview
-from catalog_plugin.models import (
-    AvailableCourse,
-    CatalogCourses,
-    FixedCatalog,
-    FlexibleCatalogModel,
-)
+from catalog_plugin.models import AvailableCourse, CatalogCourses, FixedCatalog, FlexibleCatalogModel
 
 logger = logging.getLogger(__name__)
 
 
 class FlexibleCatalogAPIClient:
-    """
-    A Python API client for FlexibleCatalogModel to interact with flexible catalog models backend-to-backend.
-    """
+    """A Python API client for FlexibleCatalogModel to interact with flexible catalog models backend-to-backend."""
 
     def __init__(self, catalog_uuid=None, catalog_slug=None, lookup_dict=None):
         """
-        Initialize the API client with a catalog UUID, catalog slug, and/or a dict that contains the lookup
-        fields to be used.
+        Initialize the API client with a catalog UUID, catalog slug, and/or a dict.
 
         At least one of these must be provided.
         """
@@ -70,18 +60,25 @@ class FlexibleCatalogAPIClient:
         Fetch a flexible catalog by UUID or slug.
 
         Returns:
-            FlexibleCatalogModel or QuerySet.none(): The retrieved flexible catalog object or empty QuerySet if not found.
+            FlexibleCatalogModel or QuerySet.none().
         """
         try:
             if self.lookup_dict:
                 lookup_query = Q()
                 for key, value in self.lookup_dict.items():
                     lookup_query &= Q(**{key: value})
-                return FlexibleCatalogModel.objects.filter(lookup_query).select_subclasses()
-            elif self.catalog_uuid:
-                return FlexibleCatalogModel.objects.get_subclass(id=self.catalog_uuid)
-            elif self.catalog_slug:
-                return FlexibleCatalogModel.objects.get_subclass(slug=self.catalog_slug)
+                return (FlexibleCatalogModel.objects.filter(lookup_query).select_subclasses())
+
+            if self.catalog_uuid:
+                return FlexibleCatalogModel.objects.get_subclass(
+                    id=self.catalog_uuid,
+                )
+
+            if self.catalog_slug:
+                return FlexibleCatalogModel.objects.get_subclass(
+                    slug=self.catalog_slug,
+                )
+
         except FlexibleCatalogModel.DoesNotExist:
             logger.warning(
                 'FlexibleCatalogModel not found. UUID: %s, Slug: %s, Lookup Dict: %s',
@@ -158,9 +155,7 @@ class FlexibleCatalogAPIClient:
 
 
 class AvailableCourseAPIClient:
-    """
-    A Python API client for the AvailableCourse model to interact with flexible catalog models backend-to-backend.
-    """
+    """Python API client for the AvailableCourse model to interact with flexible catalog models backend-to-backend."""
 
     def __init__(self, course_id):
         """
@@ -185,7 +180,7 @@ class AvailableCourseAPIClient:
             AvailableCourse: The retrieved AvailableCourse instance, or QuerySet.none() if not found.
         """
         try:
-            return AvailableCourse.objects.get(course__id=self.course_id)
+            return AvailableCourse.objects.get(course__id=self.course_id)  # type: ignore[misc]
         except AvailableCourse.DoesNotExist:
             logger.warning('AvailableCourse with course ID "%s" does not exist.', self.course_id)
         return AvailableCourse.objects.none()
@@ -269,24 +264,26 @@ class AvailableCourseAPIClient:
 
 
 def validate_catalog_id(catalog_id):
-        """
-        Validate the catalog ID to ensure it is a valid UUID.
+    """
+    Validate the catalog ID to ensure it is a valid UUID.
 
-        Args:
-            catalog_id (int or str): The catalog ID to validate.
+    Args:
+        catalog_id (int or str): The catalog ID to validate.
 
-        Returns:
-            uuid.UUID: A valid UUID instance.
+    Returns:
+        uuid.UUID: A valid UUID instance.
 
-        Raises:
-            ValueError: If the catalog_id is not a valid UUID.
-        """
-        if not isinstance(catalog_id, uuid.UUID):
-            try:
-                return uuid.UUID(catalog_id)
-            except (ValueError, TypeError):
-                raise ValueError(f'catalog_id must be a valid UUID, but got: {catalog_id}')
-        return catalog_id
+    Raises:
+        ValueError: If the catalog_id is not a valid UUID.
+    """
+    if not isinstance(catalog_id, uuid.UUID):
+        try:
+            return uuid.UUID(catalog_id)
+        except (ValueError, TypeError) as exc:
+            raise ValueError(
+                f'catalog_id must be a valid UUID, but got: {catalog_id}',
+            ) from exc
+    return catalog_id
 
 
 def validate_course_ids(course_ids):
@@ -313,11 +310,9 @@ def validate_course_ids(course_ids):
 
 
 class FixedCatalogAPIClient:
-    """
-    A Python API client for FixedCatalog model to interact with flexible catalog models backend-to-backend.
-    """
+    """A Python API client for FixedCatalog model to interact with flexible catalog models backend-to-backend."""
 
-    def __init__(self, catalog_id, course_run_ids=[]):
+    def __init__(self, catalog_id, course_run_ids=[]):  # pylint: disable=dangerous-default-value
         """
         Initialize the client with a catalog_id and optionally validate course IDs.
 
@@ -351,7 +346,7 @@ class FixedCatalogAPIClient:
         """
         return FixedCatalog.objects.all()
 
-    def add_courses_to_fixed_catalog(self, course_run_ids=[]):
+    def add_courses_to_fixed_catalog(self, course_run_ids=[]):  # pylint: disable=dangerous-default-value
         """
         Add the course runs from the provided list or the initialized list to the fixed catalog.
 
@@ -387,7 +382,7 @@ class FixedCatalogAPIClient:
 
         return catalog
 
-    def remove_courses_from_fixed_catalog(self, course_run_ids=[]):
+    def remove_courses_from_fixed_catalog(self, course_run_ids=[]):  # pylint: disable=dangerous-default-value
         """
         Remove multiple course runs from the fixed catalog.
 
@@ -425,11 +420,9 @@ class FixedCatalogAPIClient:
 
 
 class CatalogCoursesAPIClient:
-    """
-    A Python API client for CatalogCourses model to interact with flexible catalog models backend-to-backend.
-    """
+    """A Python API client for CatalogCourses model to interact with flexible catalog models backend-to-backend."""
 
-    def __init__(self, catalog_id, course_ids=[]):
+    def __init__(self, catalog_id, course_ids=[]):  # pylint: disable=dangerous-default-value
         """
         Initialize the client with a catalog_id and optionally validate course IDs.
 
@@ -469,7 +462,7 @@ class CatalogCoursesAPIClient:
             logger.warning('No CatalogCourses found with ID "%s".', self.catalog_id)
         return CatalogCourses.objects.none()
 
-    def add_courses_to_catalog(self, course_ids=[]):
+    def add_courses_to_catalog(self, course_ids=[]):  # pylint: disable=dangerous-default-value
         """
         Add multiple AvailableCourse objects to the catalog.
 
@@ -500,7 +493,7 @@ class CatalogCoursesAPIClient:
 
         return catalog
 
-    def remove_courses_from_catalog(self, course_ids=[]):
+    def remove_courses_from_catalog(self, course_ids=[]):  # pylint: disable=dangerous-default-value
         """
         Remove multiple AvailableCourse objects from the catalog.
 
