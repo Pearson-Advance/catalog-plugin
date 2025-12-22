@@ -8,6 +8,10 @@ Sphinx documentation and the PyPI description).
 This project adheres to Semantic Versioning (http://semver.org/).
 There should always be an "Unreleased" section for changes pending release.
 ----
+### Version 1.0.0 - Dec 22, 2025
+**Changes:**
+
+  - Migrate plugin to ulmo edx-platform version.
 
 ### Version 0.2.0 - Jan 27, 2025
 **Changes:**
