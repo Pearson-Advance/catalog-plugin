@@ -128,3 +128,9 @@ class AvailableCourseAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'course', 'active')
     search_fields = ('course__id',)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        """Exclude CCX courses from the `course` dropdown so only master courses are selectable."""
+        if db_field.name == 'course':
+            kwargs['queryset'] = db_field.related_model.objects.exclude(id__startswith='ccx-v1:')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
