@@ -1,6 +1,8 @@
 """Django admin pages for Catalog models."""
 from django.contrib import admin
+from django.db.models import Q
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.html import format_html
 
 from catalog_plugin.models import AvailableCourse, CatalogCourses, DynamicCatalog, FixedCatalog, FlexibleCatalogModel
@@ -130,7 +132,11 @@ class AvailableCourseAdmin(admin.ModelAdmin):
     search_fields = ('course__id',)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        """Exclude CCX courses from the `course` dropdown so only master courses are selectable."""
+        """Exclude CCX courses and ended courses from the `course` dropdown."""
         if db_field.name == 'course':
-            kwargs['queryset'] = db_field.related_model.objects.exclude(id__startswith='ccx-v1:')
+            kwargs['queryset'] = (
+                db_field.related_model.objects
+                .exclude(id__startswith='ccx-v1:')
+                .filter(Q(end__isnull=True) | Q(end__gte=timezone.now()))
+            )
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
