@@ -139,4 +139,7 @@ class AvailableCourseAdmin(admin.ModelAdmin):
                 .exclude(id__startswith='ccx-v1:')
                 .filter(Q(end__isnull=True) | Q(end__gte=timezone.now()))
             )
+            kwargs['help_text'] = (
+                'CCX courses and courses with an end date in the past are hidden from this list.'
+            )
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
