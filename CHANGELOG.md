@@ -8,6 +8,11 @@ Sphinx documentation and the PyPI description).
 This project adheres to Semantic Versioning (http://semver.org/).
 There should always be an "Unreleased" section for changes pending release.
 ----
+### Version 1.0.1 - May 14, 2026
+**Changes:**
+
+  - Filter out CCXs and courses with end dates in the past from AvailableCourses dropdown.
+
 ### Version 1.0.0 - Dec 22, 2025
 **Changes:**
 
