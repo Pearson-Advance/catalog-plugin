@@ -48,7 +48,7 @@ catalog = 'catalog_plugin.apps:CatalogPluginConfig'
 # Versioning.
 # -----------
 [tool.bumpversion]
-current_version = "1.0.0"
+current_version = "1.0.1"
 commit = true
 tag = true
 
