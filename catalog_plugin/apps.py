@@ -24,5 +24,9 @@ class CatalogPluginConfig(AppConfig):
                 'common': {'relative_path': 'settings.common'},
                 'test': {'relative_path': 'settings.test'},
             },
+            'cms.djangoapp': {
+                'common': {'relative_path': 'settings.common'},
+                'test': {'relative_path': 'settings.test'},
+            },
         },
     }
