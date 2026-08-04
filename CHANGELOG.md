@@ -8,6 +8,12 @@ Sphinx documentation and the PyPI description).
 This project adheres to Semantic Versioning (http://semver.org/).
 There should always be an "Unreleased" section for changes pending release.
 ----
+### Version 1.0.2 - Aug 4, 2026
+**Changes:**
+
+  - Add shared settings `settings_config` with the CMS.
+  - Add `[project.entry-points.'cms.djangoapp']` to pyproject.toml.
+
 ### Version 1.0.1 - May 14, 2026
 **Changes:**
 
